@@ -1,14 +1,14 @@
 terraform {
   backend "remote" {
-    organization = "hashicorp-rachel"
+    organization = "delta"
     workspaces {
-      name = "sentinel-demo1"
+      name = "sentinel"
     }
   }
 }
 
 provider "aws" {
-  region                  = "us-west-2"
+  region                  = "us-east-1"
   profile                 = "default"
   shared_credentials_file = "~/.aws/credentials"
 }
