@@ -1,14 +1,15 @@
-terraform {
-  backend "remote" {
-    organization = "delta"
-    workspaces {
-      name = "sentinel"
+data "terraform_remote_state" "test_tags" {
+  backend = "remote"
+
+  config = {
+    organization= "delta"
+    workspaces = {
+      name = "tf-use-case"
     }
   }
 }
-
 provider "aws" {
-  region                  = "us-west-2"
+  region                  = "us-east-1"
 }
 
 
@@ -34,4 +35,5 @@ resource "aws_instance" "web" {
   tags = {
     Name = "Wolverine"
   }
+  vpc_security_group_ids = [data.terraform_remote_state.test_tags.tags.sec_group.test]
 }
